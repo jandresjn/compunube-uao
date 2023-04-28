@@ -1,0 +1,46 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.synced_folder "src/", "/srv/website"
+  if Vagrant.has_plugin? "vagrant-vbguest"
+    config.vbguest.no_install  = true
+    config.vbguest.auto_update = false
+    config.vbguest.no_remote   = true
+  end
+
+
+  config.vm.define :balanceadorJJ do |balanceadorJJ|
+    balanceadorJJ.vm.box = "jandresjn/jandresjn"
+    balanceadorJJ.vm.box_version = "1.1"
+    balanceadorJJ.vm.provider "virtualbox"
+    balanceadorJJ.vm.network :private_network, ip: "192.168.100.2"
+    balanceadorJJ.vm.network "forwarded_port", guest: 1936, host: 8080 # Forward port 80 of the guest VM to port 8080 on the host machine
+    balanceadorJJ.vm.network "forwarded_port", guest: 80, host: 8081
+    balanceadorJJ.vm.hostname = "balanceadorJJ"
+    #clienteUbuntu.vm.provision "shell", inline: 'export PATH="$HOME/.local/bin:$PATH"'
+
+  end
+
+  config.vm.define :nodo1JJ do |nodo1JJ|
+    nodo1JJ.vm.box = "jandresjn/jandresjn"
+    nodo1JJ.vm.box_version = "1.1"
+    nodo1JJ.vm.provider "virtualbox"
+    nodo1JJ.vm.network :private_network, ip: "192.168.100.3"
+    nodo1JJ.vm.hostname = "nodo1JJ"
+    #nodo1JJ.vm.provision "shell", path: "script.sh"
+    #servidorUbuntu.vm.provision "shell", inline: 'export PATH="$HOME/.local/bin:$PATH"'
+  end
+
+    config.vm.define :nodo2JJ do |nodo2JJ|
+    nodo2JJ.vm.box = "jandresjn/jandresjn"
+    nodo2JJ.vm.box_version = "1.1"
+    nodo2JJ.vm.provider "virtualbox"
+    nodo2JJ.vm.network :private_network, ip: "192.168.100.4"
+    nodo2JJ.vm.hostname = "nodo2JJ"
+    nodo2JJ.vm.provision "shell", path: "nodoProvision.sh"
+    #servidorUbuntu.vm.provision "shell", inline: 'export PATH="$HOME/.local/bin:$PATH"'
+  end
+
+end
