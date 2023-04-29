@@ -1,0 +1,193 @@
+
+# Instalación de Consul
+
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install consul
+
+
+# Se tiene encuenta que está expuesto la visualización.
+
+# Balanceador
+consul agent -ui -server -bootstrap-expect=1 -client=0.0.0.0 -data-dir=. -node=agent-one -bind=192.168.100.2 -enable-script-checks=true -config-dir=/etc/consul.d
+
+nohup consul agent -ui -server -bootstrap-expect=1 -data-dir=. -node=agent-one -bind=192.168.100.2 -enable-script-checks=true -config-dir=/etc/consul.d >/dev/null 2>&1 &
+
+#Nodo1
+consul agent -ui -data-dir=. -node=agent-two -bind=192.168.100.3 -enable-script-checks=true -config-dir=/etc/consul.d
+
+#Nodo2
+consul agent -ui -data-dir=. -node=agent-three -bind=192.168.100.4 -enable-script-checks=true -config-dir=/etc/consul.d
+
+#Depend
+consul join 192.168.100.4
+consul join 192.168.100.3
+
+
+#Instalación NPM node js
+
+sudo apt install nodejs -y
+node -v
+sudo apt install npm -y
+npm -v
+
+sed -i 's/HOST='"'"'192.168.100.3'"'"'/HOST='"'"'192.168.100.4'"'"'/g' index.js
+
+---- Instalación de node js-----------
+
+# Actualizar el sistema
+sudo apt-get update
+sudo apt-get upgrade -y
+
+# Instalar Node.js y npm
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Establecer la variable de entorno CI en true para evitar mensajes gráficos en npm
+export CI=true
+
+# Instalar paquetes de npm
+sudo npm install -g gulp
+sudo npm install -g webpack
+
+-----------------------------------------------------
+
+global
+	log /dev/log	local0
+	log /dev/log	local1 notice
+	chroot /var/lib/haproxy
+	stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+	stats timeout 30s
+	user haproxy
+	group haproxy
+	daemon
+
+	# Default SSL material locations
+	ca-base /etc/ssl/certs
+	crt-base /etc/ssl/private
+
+	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+
+defaults
+	log	global
+	mode	http
+	option	httplog
+	option	dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+	errorfile 400 /etc/haproxy/errors/400.http
+	errorfile 403 /etc/haproxy/errors/403.http
+	errorfile 408 /etc/haproxy/errors/408.http
+	errorfile 500 /etc/haproxy/errors/500.http
+	errorfile 502 /etc/haproxy/errors/502.http
+	errorfile 503 /etc/haproxy/errors/503.http # Archivo que se puede modificar por otro html
+	errorfile 504 /etc/haproxy/errors/504.http
+	
+	
+----- otro ejemplo del haproxy.cfg que no me funcionó, basado en continuar el default haproxy.cfg que viene luego de la instalación inicial.
+
+log /dev/log	local0
+log /dev/log	local1 notice
+chroot /var/lib/haproxy
+stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+stats timeout 30s
+user haproxy
+group haproxy
+daemon
+
+# Default SSL material locations
+ca-base /etc/ssl/certs
+crt-base /etc/ssl/private
+
+# Default ciphers to use on SSL-enabled listening sockets.
+# For more information, see ciphers(1SSL). This list is from:
+#  https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+# An alternative list with additional directives can be obtained from
+#  https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=haproxy
+ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
+ssl-default-bind-options no-sslv3
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+    errorfile 400 /etc/haproxy/errors/400.http
+    errorfile 403 /etc/haproxy/errors/403.http
+    errorfile 408 /etc/haproxy/errors/408.http
+    errorfile 500 /etc/haproxy/errors/500.http
+    errorfile 502 /etc/haproxy/errors/502.http
+    errorfile 503 /etc/haproxy/errors/503.http
+    errorfile 504 /etc/haproxy/errors/504.http
+
+frontend stats
+    bind *:1936
+    mode http
+    stats uri /
+    stats show-legends
+    no log
+
+frontend http_front
+    bind *:80
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server-template mywebapp 1-10 _web._tcp.service.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check
+
+resolvers consul
+    nameserver consul 127.0.0.1:8600
+    accepted_payload_size 8192
+    hold valid 5s
+
+    # Sección de referencia para enlazarlo con Consul
+    service_template mywebapp
+        mode http
+        balance roundrobin
+        resolvers consul
+        resolve-opts allow-dup-ip
+        resolve-prefer ipv4
+        option httpchk GET /health
+        http-check expect status 200
+        dynamic-cookie-key mywebapp
+        cookie mywebapp prefix
+        
+        
+        
+        
+--------------------------------------------------------------
+
+Archivo yml para usar el artillery
+
+ejemplo sencillo
+
+config:
+  target: "http://192.168.100.2:80" # IP del balanceador de carga
+  phases:
+    - duration: 10 # duración en segundos de la prueba de carga
+      arrivalRate: 1 # tasa de llegada de solicitudes por segundo
+
+scenarios:
+  - name: "Test de carga básico"
+    flow:
+      - get:
+          url: "/"
+          headers:
+            User-Agent: "Artillery"
+            
+npm install -g artillery
+artillery run test.yml
+
+
+
+
+
+
+
