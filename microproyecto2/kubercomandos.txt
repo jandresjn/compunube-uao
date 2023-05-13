@@ -1,0 +1,10 @@
+ 1818  curl -X POST -F img=@perro.jpg http://20.232.74.86/predict
+ 1819  kubectl --help
+ 1820  kubectl cluster-info
+ 1821  kubectl get pods
+ 1822  kubectl config get-contexts
+ 1823  kubectl get ns
+ 1824  kubectl get nodes
+ 1825  kubectl get deployments
+ 1826  curl -X POST -F img=@perro.jpg http://20.232.74.86/predict
+ 1827  history | tail -n 10 | tee kubercomandos.txt

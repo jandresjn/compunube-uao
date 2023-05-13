@@ -1,0 +1,165 @@
+Name:             micro2-p2-deployment-99f7b94cd-nc7n6
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             aks-agentpool-52848846-vmss000002/10.224.0.4
+Start Time:       Fri, 12 May 2023 17:37:29 -0500
+Labels:           app=micro2-p2
+                  pod-template-hash=99f7b94cd
+Annotations:      <none>
+Status:           Running
+IP:               10.244.1.2
+IPs:
+  IP:           10.244.1.2
+Controlled By:  ReplicaSet/micro2-p2-deployment-99f7b94cd
+Containers:
+  micro2-p2:
+    Container ID:   containerd://87572fe57c5151158e0534cadcd900df275b2cb294cec7fe618323bd282f25b3
+    Image:          jandresjn/micro2-p2:v1
+    Image ID:       docker.io/jandresjn/micro2-p2@sha256:0ed2bfa5a0105540afc8d8c205e23ef917cf8484280fdc1aaf8953d0b24057f5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 12 May 2023 17:38:04 -0500
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qxjb7 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-qxjb7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  47m   default-scheduler  0/2 nodes are available: 2 node(s) had untolerated taint {node.cloudprovider.kubernetes.io/uninitialized: true}. preemption: 0/2 nodes are available: 2 Preemption is not helpful for scheduling.
+  Normal   Scheduled         46m   default-scheduler  Successfully assigned default/micro2-p2-deployment-99f7b94cd-nc7n6 to aks-agentpool-52848846-vmss000002
+  Normal   Pulling           46m   kubelet            Pulling image "jandresjn/micro2-p2:v1"
+  Normal   Pulled            45m   kubelet            Successfully pulled image "jandresjn/micro2-p2:v1" in 31.414127067s (31.414433286s including waiting)
+  Normal   Created           45m   kubelet            Created container micro2-p2
+  Normal   Started           45m   kubelet            Started container micro2-p2
+
+Name:             micro2-p2-deployment-99f7b94cd-nln5h
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             aks-agentpool-52848846-vmss000002/10.224.0.4
+Start Time:       Fri, 12 May 2023 17:37:29 -0500
+Labels:           app=micro2-p2
+                  pod-template-hash=99f7b94cd
+Annotations:      <none>
+Status:           Running
+IP:               10.244.1.8
+IPs:
+  IP:           10.244.1.8
+Controlled By:  ReplicaSet/micro2-p2-deployment-99f7b94cd
+Containers:
+  micro2-p2:
+    Container ID:   containerd://c7081dc6d09812fffc3a8f194499f690d83a0cc36e91fb725b682e1abafd086a
+    Image:          jandresjn/micro2-p2:v1
+    Image ID:       docker.io/jandresjn/micro2-p2@sha256:0ed2bfa5a0105540afc8d8c205e23ef917cf8484280fdc1aaf8953d0b24057f5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 12 May 2023 17:38:04 -0500
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-6jlbw (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-6jlbw:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  47m   default-scheduler  0/2 nodes are available: 2 node(s) had untolerated taint {node.cloudprovider.kubernetes.io/uninitialized: true}. preemption: 0/2 nodes are available: 2 Preemption is not helpful for scheduling.
+  Normal   Scheduled         46m   default-scheduler  Successfully assigned default/micro2-p2-deployment-99f7b94cd-nln5h to aks-agentpool-52848846-vmss000002
+  Normal   Pulling           46m   kubelet            Pulling image "jandresjn/micro2-p2:v1"
+  Normal   Pulled            45m   kubelet            Successfully pulled image "jandresjn/micro2-p2:v1" in 184.405264ms (31.938312188s including waiting)
+  Normal   Created           45m   kubelet            Created container micro2-p2
+  Normal   Started           45m   kubelet            Started container micro2-p2
+
+Name:             micro2-p2-deployment-99f7b94cd-txv5d
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             aks-agentpool-52848846-vmss000002/10.224.0.4
+Start Time:       Fri, 12 May 2023 17:37:29 -0500
+Labels:           app=micro2-p2
+                  pod-template-hash=99f7b94cd
+Annotations:      <none>
+Status:           Running
+IP:               10.244.1.7
+IPs:
+  IP:           10.244.1.7
+Controlled By:  ReplicaSet/micro2-p2-deployment-99f7b94cd
+Containers:
+  micro2-p2:
+    Container ID:   containerd://fa592a1f94e33f7f36635b168897aa2e098a7d2b4c8a4494c77981af674c2290
+    Image:          jandresjn/micro2-p2:v1
+    Image ID:       docker.io/jandresjn/micro2-p2@sha256:0ed2bfa5a0105540afc8d8c205e23ef917cf8484280fdc1aaf8953d0b24057f5
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 12 May 2023 17:38:04 -0500
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-tz2xj (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-tz2xj:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  47m   default-scheduler  0/2 nodes are available: 2 node(s) had untolerated taint {node.cloudprovider.kubernetes.io/uninitialized: true}. preemption: 0/2 nodes are available: 2 Preemption is not helpful for scheduling.
+  Normal   Scheduled         46m   default-scheduler  Successfully assigned default/micro2-p2-deployment-99f7b94cd-txv5d to aks-agentpool-52848846-vmss000002
+  Normal   Pulling           46m   kubelet            Pulling image "jandresjn/micro2-p2:v1"
+  Normal   Pulled            45m   kubelet            Successfully pulled image "jandresjn/micro2-p2:v1" in 586.898523ms (31.83722454s including waiting)
+  Normal   Created           45m   kubelet            Created container micro2-p2
+  Normal   Started           45m   kubelet            Started container micro2-p2
+

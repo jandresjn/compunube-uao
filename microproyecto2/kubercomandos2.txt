@@ -1,0 +1,50 @@
+ 1779  az account set --subscription b4220ec3-216d-46c5-bdb6-671c1fbb4a51
+ 1780  az aks get-credentials --resource-group kubernetes-lab-rg --name microproyecto2-p1
+ 1781  kubectl get nodes
+ 1782  ls
+ 1783  cd microproyecto2
+ 1784  ls
+ 1785  clear
+ 1786  touch requirements.txt
+ 1787  sudo docker build -t micro2-p2:v1
+ 1788  sudo docker build -t micro2-p2:v1 .
+ 1789  sudo docker images
+ 1790  sudo docker run -d -p 5000:5000 micro2-p2
+ 1791  sudo docker run -d -p 5000:5000 micro2-p2:v1
+ 1792  sudo docker ps -a
+ 1793  ls
+ 1794  curl -X POST -F img=@dog.png http://localhost:5000/predict
+ 1795  sudo docker ps -a
+ 1796  curl -X POST -F img=@perro.jpg http://localhost:5000/predict
+ 1797  sudo docker login
+ 1798  sudo docker tag 73a7c759e1f8 jandresjn/micro2-p2:v1  
+ 1799  sudo docker tag 73a7c759e1f8:v1 jandresjn/micro2-p2:v1  
+ 1800  sudo docker tag micro2-p2:v1 jandresjn/micro2-p2:v1  
+ 1801  sudo docker push jandresjn/micro2-p2:v1  
+ 1802  kubectl apply -f deployment.yaml 
+ 1803  kubectl delete -f deployment.yaml 
+ 1804  kubectl apply -f deployment.yaml 
+ 1805  kubectl get service
+ 1806  kubectl expose deployment micro2-p2-deployment  --type=LoadBalancer --port 80 --target-port 5000
+ 1807  kubectl get service
+ 1808  cat kubectl get service micro2-p2-deployment --url
+ 1809  cat kubectl get service micro2-p2-deployment
+ 1810  kubectl get service micro2-p2-deployment
+ 1811  kubectl get service micro2-p2-deployment --url
+ 1812  ls
+ 1813  curl -X POST -F img=@perro.jpg 20.232.74.8:80/predict
+ 1814  curl -X POST -F img=@perro.jpg http://20.232.74.8/predict
+ 1815  clear
+ 1816  kubectl get service micro2-p2-deployment --url
+ 1817  kubectl get service micro2-p2-deployment 
+ 1818  curl -X POST -F img=@perro.jpg http://20.232.74.86/predict
+ 1819  kubectl --help
+ 1820  kubectl cluster-info
+ 1821  kubectl get pods
+ 1822  kubectl config get-contexts
+ 1823  kubectl get ns
+ 1824  kubectl get nodes
+ 1825  kubectl get deployments
+ 1826  curl -X POST -F img=@perro.jpg http://20.232.74.86/predict
+ 1827  history | tail -n 10 | tee kubercomandos.txt
+ 1828  history | tail -n 50 | tee kubercomandos2.txt

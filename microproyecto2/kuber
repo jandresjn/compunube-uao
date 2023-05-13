@@ -1,0 +1,4 @@
+kubectl expose deployment micro2-p2-deployment  --type=LoadBalancer --port 80 --target-port 5000
+
+curl -X POST -F img=@perro.jpg http://20.232.74.8/predict
+curl -X POST -F img=@perro.jpg http:/20.26.138.169/predict
